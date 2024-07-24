@@ -212,4 +212,33 @@ $(document).ready(function() {
         }
         return '#FFFFFF'; // default color
     }
+	
+	// Function to compile the code and set up the download link
+	// Function to compile the code and set up the download link
+	function compileAndDownload() {
+		let fileName = $('#incFileName').val() || 'unnamed_page';
+		let code = $('#compiledCode').text();
+		if (!code) {
+			alert('No code to download. Please compile the code first.');
+			return;
+		}
+
+		// Create a Blob from the code
+		let blob = new Blob([code], { type: 'text/plain' });
+		let url = URL.createObjectURL(blob);
+
+		// Update the download link
+		let downloadLink = $('#downloadLink');
+		downloadLink.attr('href', url);
+		downloadLink.attr('download', `${fileName}.inc`);
+		downloadLink.show(); // Show the download link
+	}
+
+	// Attach the compileAndDownload function to the compile button click event
+	$('#downloadLink').on('click', function() {
+		compileAndDownload();
+		console.log("download?")
+	});
+
+
 });
